@@ -1,42 +1,54 @@
 
+import streamlit as st
 from transformers import pipeline
 
-# Explicitly load the summarization model
-summarizer = pipeline("summarization", model="sshleifer/distilbart-cnn-12-6")
+# --- Setup ---
+st.set_page_config(page_title="AI Text Summarizer", layout="wide")
+st.title("📝 AI Text Summarizer")
 
-print("---- Simple AI Text Summarizer ----")
+# Load summarization model (HuggingFace)
+@st.cache_resource
+def load_summarizer():
+    return pipeline("summarization", model="sshleifer/distilbart-cnn-12-6")
 
-# Always read text from article.txt
-try:
-    with open("article.txt", "r", encoding="utf-8") as f:
-        text = f.read()
-except FileNotFoundError:
-    print("⚠️ Please create a file named 'article.txt' in the same folder as summarizer.py")
-    exit()
+summarizer = load_summarizer()
 
-# Run summarization
-summary = summarizer(text, max_length=100, min_length=30, do_sample=False)
+# --- User Input ---
+user_input = st.text_area(
+    "Enter text to summarize:", 
+    height=250, 
+    key="summary_text_area_1"
+)
 
-print("\n--- Summary ---")
-print(summary[0]['summary_text'])
-from transformers import pipeline
+# Optional: another input
+additional_input = st.text_area(
+    "Enter additional text (optional):", 
+    height=250, 
+    key="summary_text_area_2"
+)
 
-# Explicitly load the summarization model
-summarizer = pipeline("summarization", model="sshleifer/distilbart-cnn-12-6")
+# --- Summarization ---
+if st.button("Summarize", key="summarize_button"):
+    text_to_summarize = user_input.strip()
+    
+    # Include additional input if present
+    if additional_input.strip():
+        text_to_summarize += "\n" + additional_input.strip()
+    
+    if text_to_summarize:
+        with st.spinner("Summarizing..."):
+            try:
+                summary_result = summarizer(text_to_summarize, max_length=130, min_length=30, do_sample=False)
+                summary_text = summary_result[0]['summary_text']
+                st.success("✅ Summary Generated:")
+                st.write(summary_text)
+            except Exception as e:
+                st.error(f"Error during summarization: {e}")
+    else:
+        st.warning("Please enter text to summarize.")
 
-print("---- Simple AI Text Summarizer ----")
-
-# Always read text from article.txt
-try:
-    with open("article.txt", "r", encoding="utf-8") as f:
-        text = f.read()
-except FileNotFoundError:
-    print("⚠️ Please create a file named 'article.txt' in the same folder as summarizer.py")
-    exit()
-
-# Run summarization
-summary = summarizer(text, max_length=100, min_length=30, do_sample=False)
-
-print("\n--- Summary ---")
-print(summary[0]['summary_text'])
+# --- Optional: Clear Inputs Button ---
+if st.button("Clear Inputs", key="clear_button"):
+    st.session_state["summary_text_area_1"] = ""
+    st.session_state["summary_text_area_2"] = ""
 
