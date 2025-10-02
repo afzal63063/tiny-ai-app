@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 import streamlit as st
 from transformers import pipeline, AutoTokenizer, AutoModelForSeq2SeqLM
 import time  # for demo purposes
@@ -77,7 +77,7 @@ if st.button("Summarize"):
         final_summary = smart_summarize_with_progress(user_input)
         st.subheader("Summary:")
         st.write(final_summary)
-=======
+
 import streamlit as st
 from transformers import pipeline, AutoTokenizer, AutoModelForSeq2SeqLM
 import time  # for demo purposes
@@ -156,4 +156,4 @@ if st.button("Summarize"):
         final_summary = smart_summarize_with_progress(user_input)
         st.subheader("Summary:")
         st.write(final_summary)
->>>>>>> e41afd55cc9eca99bcab00b88916525080415dcd
+
