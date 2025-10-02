@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 from transformers import pipeline
 
 # Explicitly load the summarization model
@@ -19,7 +19,6 @@ summary = summarizer(text, max_length=100, min_length=30, do_sample=False)
 
 print("\n--- Summary ---")
 print(summary[0]['summary_text'])
-=======
 from transformers import pipeline
 
 # Explicitly load the summarization model
@@ -40,4 +39,4 @@ summary = summarizer(text, max_length=100, min_length=30, do_sample=False)
 
 print("\n--- Summary ---")
 print(summary[0]['summary_text'])
->>>>>>> e41afd55cc9eca99bcab00b88916525080415dcd
+
