@@ -1,5 +1,0 @@
-<<<<<<< HEAD
-Artificial Intelligence is transforming industries worldwide. From healthcare to finance, AI tools are streamlining operations, predicting trends, and improving decision-making. However, concerns remain about ethics, bias, and job displacement.
-=======
-Artificial Intelligence is transforming industries worldwide. From healthcare to finance, AI tools are streamlining operations, predicting trends, and improving decision-making. However, concerns remain about ethics, bias, and job displacement.
->>>>>>> e41afd55cc9eca99bcab00b88916525080415dcd
